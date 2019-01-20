@@ -1,0 +1,71 @@
+﻿<Page
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:RBMessageManager.Views"
+      xmlns:ViewModels="clr-namespace:RBMessageManager.ViewModels" x:Class="RBMessageManager.Views.PrimaryView"
+      mc:Ignorable="d" 
+      d:DesignHeight="360" d:DesignWidth="640"
+      Title="PrimaryPage"
+      Background="WhiteSmoke">
+
+    <Page.DataContext>
+        <ViewModels:PrimaryViewModel/>
+    </Page.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition x:Name="NavigationRow" Height="25"/>
+            <RowDefinition x:Name="ViewingRow" Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0" Grid.ColumnSpan="2" x:Name="NavigationUI">
+            <MenuItem Header="_File">
+                <MenuItem Header="_Save" Click="Save_Click"/>
+                <Separator/>
+                <MenuItem Header="_New Message" Click="NewMessage_Click"/>
+                <MenuItem Header="_New Type" Click="NewType_Click"/>
+                <Separator/>
+                <MenuItem Header="_Exit" Click="Exit_Click"/>
+            </MenuItem>
+        </Menu>
+        <DataGrid Grid.Row="1" x:Name="MessageGrid" AutoGenerateColumns="False" ItemsSource="{Binding MessageCollection}">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Message" x:Name="MessageColumn">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox Text="{Binding Text}"
+                                       MinWidth="120">
+                            </TextBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Type" x:Name="TypeColumn">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding MessageType.Type}"
+                                       MinWidth="120"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <!--<DataGridTemplateColumn Header="Change Type To" x:Name="TypeListColumn">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox ItemsSource="{Binding MessageTypeCollection}"
+                                      SelectedValue="{Binding Path=ID}"
+                                      SelectedValuePath="Type"
+                                      DisplayMemberPath="Type"
+                                      IsEditable="False"
+                                      MinWidth="120">
+                                
+                                <ComboBox.DataContext>
+                                    <ViewModels:PrimaryViewModel/>
+                                </ComboBox.DataContext>
+                            </ComboBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>-->
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Page>
